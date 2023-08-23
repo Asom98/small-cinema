@@ -1,31 +1,84 @@
 import React, { useState, useEffect } from 'react';
-
 import Movie from './Movie';
+import { Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import { formatDate } from './utilities/formatDate';
+import CategoryDropdown from './CategoryDropdown';
+
 
 export const Screenings = () => {
-
-      // A variable that will contain a list of movies
   const [movies, setMovies] = useState([]);
+  const [screenings, setScreenings] = useState([]);
+  const[selectedCategory, setSelectedCategory] = useState("All")
+  const [categories, setCategories] = useState(new Set());
 
-  // Run this function when the component mounts
+  
+
   useEffect(() => {
-    // Self-executing asyncronous anonomyous function
     (async () => {
-      // Fetch all the movies from the REST api
-      // and store them in the state variable movies
-      setMovies(await (await (fetch('/api/movies'))).json());
+      const moviesData = await (await fetch('/api/movies')).json();
+      const screeningsData = await (await fetch('/api/screenings')).json();
+      /*moviesData.forEach(a=>{
+        console.log(a)
+      })*/
+      
+      const movieScreeningMap = {};
+      screeningsData.forEach(screening => {
+        const { id, time } = screening;
+        if (!movieScreeningMap[id]) {
+          movieScreeningMap[id] = [];
+        }
+        movieScreeningMap[id].push(formatDate(time));
+
+      });
+
+      const moviesWithScreenings = moviesData.map(movie => ({
+        ...movie,
+        date: movieScreeningMap[movie.id] || [],
+      }));
+
+      setMovies(moviesWithScreenings);
+      setScreenings(screeningsData);
+
+      const extractedCategories = new Set();
+      moviesData.forEach(movie => {
+        movie.description.categories.forEach(category => extractedCategories.add(category));
+      });
+      setCategories(extractedCategories);
+      categories.forEach(a=>{
+        console.log(a)
+      })
     })();
   }, []);
 
-    return <div className="App">
-    {/* Loop through all movies and display each movie */}
-    {movies.map(({ id, title, description }) => <Movie
-      key={id}
-      title={title}
-      description={description}
-    />)}
-  </div>;
-    
+  return (
+    <div className="container mt-4">
+      <Row className="justify-content-center mb-4">
+        <Col md={6}>
+          <CategoryDropdown
+            selectedCategory={selectedCategory}
+            categories={categories}
+            onCategoryChange={setSelectedCategory}
+          />
+        </Col>
+      </Row>
+  
+      <Row>
+        {movies
+          .filter(movie => selectedCategory === "All" || movie.description.categories.includes(selectedCategory))
+          .map(({ id, title, description, length, categories, date }) => (
+            <Col key={id} md={4} className="mb-4">
+              <Movie
+                title={title}
+                description={description}
+                length={length}
+                categories={categories}
+                date={date}
+              />
+            </Col>
+          ))}
+      </Row>
+    </div>
+  );
 };
 
 export default Screenings;
