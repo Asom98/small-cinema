@@ -11,3 +11,14 @@ export const formatDate = (dateTimeString) => {
   const formattedDate = new Date(dateTimeString).toLocaleString('en-US', options);
   return formattedDate;
 };
+
+export const formatDateMore = (dateTimeString) => {
+  const options = {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  };
+  
+  const formattedDate = new Date(dateTimeString).toLocaleString('en-US', options);
+  return formattedDate;
+};

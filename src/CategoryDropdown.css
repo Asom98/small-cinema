@@ -1,5 +1,14 @@
 #category-dropdown {
-    background-color: #f7f7f7; /* Light gray background */
+    background-color: #f7f7f7;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: #333;
+    font-weight: bold;
+  }
+  #dates-dropdown {
+    background-color: #f7f7f7;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -11,13 +20,17 @@
   #category-dropdown:focus {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   }
+
+  #date-dropdown:focus {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
   
   .dropdown-item {
     color: #555;
   }
   
   .dropdown-item:hover {
-    background-color: #f0f0f0; /* Lighter gray on hover */
+    background-color: #f0f0f0;
     color: #333;
   }
   
