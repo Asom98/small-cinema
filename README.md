@@ -1,8 +1,15 @@
-# React + Vite
+# Cinema
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project utilizes React, Vite, and React-Bootstrap to create a cinema website. It includes five components designed to showcase movies and their screenings.
 
-Currently, two official plugins are available:
+## Components
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Movie**: In this component, React Bootstrap's card component is utilized to create visually appealing individual cards for each movie. The styling is done to ensure a decent and engaging card design.
+
+- **Screenings**: The Screenings component is responsible for fetching data from APIs. It utilizes the Movie component to display each movie. Utilizing the useState hook, this component centralizes the API calls and displays details such as the date, time, and length of each movie.
+
+- **DatesDropdown**: This component uses React Bootstrap's dropdown menu to create a user-friendly date selection interface. It populates the dropdown with all available dates for each movie and sorts them based on the user's choice.
+
+- **CategoryDropdown**: Similarly to DatesDropdown, this component uses React Bootstrap's dropdown menu to enable users to filter movies by category. It presents all possible categories for each movie and allows users to sort movies based on their chosen category.
+
+By effectively utilizing these components, the cinema website provides an engaging and dynamic platform for users to explore and interact with movie details.
