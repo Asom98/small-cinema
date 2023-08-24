@@ -4,6 +4,8 @@ This project utilizes React, Vite, and React-Bootstrap to create a cinema websit
 
 ## Components
 
+- **App**: The root component of the application. It sets up React Router to manage navigation within the website. There is a single route defined for the path `'/'`, which renders the `Screenings` component.
+
 - **Movie**: In this component, React Bootstrap's card component is utilized to create visually appealing individual cards for each movie. The styling is done to ensure a decent and engaging card design.
 
 - **Screenings**: The Screenings component is responsible for fetching data from APIs. It utilizes the Movie component to display each movie. Utilizing the useState hook, this component centralizes the API calls and displays details such as the date, time, and length of each movie.
